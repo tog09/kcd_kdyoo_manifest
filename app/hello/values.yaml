@@ -30,7 +30,7 @@ ingress:
     alb.ingress.kubernetes.io/load-balancer-name: kcd-svc-kdyoo-alb
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/group.name: kcd-svc-kdyoo
+    alb.ingress.kubernetes.io/group.name: kcd-svc-kdyoo-apps
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/healthcheck-path: /hello
     alb.ingress.kubernetes.io/subnets: subnet-04cf02125fe43e952, subnet-0d3a600e2c59a009d
