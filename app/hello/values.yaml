@@ -6,7 +6,7 @@ appName: "hello"
 replicaCount: 4
 
 image:
-  repository: 925676107448.dkr.ecr.ap-northeast-2.amazonaws.com/kcd-cicd-kdyoo-app-repo
+  repository: 925676107448.dkr.ecr.ap-northeast-2.amazonaws.com/kcd-cicd-kdyoo-hello-app-repo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
