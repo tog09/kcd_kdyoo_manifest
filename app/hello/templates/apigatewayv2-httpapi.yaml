@@ -21,4 +21,6 @@ metadata:
 spec:
   apiID: {{ .Values.apigatewayv2.apiid }}
   routeKey: "GET /{{ .Values.appName }}"
-  target: "integrations/{{ .Values.apigatewayv2.integrationid }}"
+  targetRef:
+    from:
+      name: "{{ .Values.appName }}-integration"
