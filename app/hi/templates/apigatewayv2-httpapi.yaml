@@ -48,5 +48,6 @@ spec:
   apiRef:
     from:
       name: "{{ .Values.appName }}-http-api"
+  stageName: "$default"
   autoDeploy: true
   description: "auto deployed stage for {{ .Values.appName }}-http-api"
