@@ -15,7 +15,7 @@ metadata:
 spec:
   apiRef:
     from:
-      name: "{{ .Values.appName }}-integration"
+      name: "{{ .Values.appName }}-http-api"
   connectionID: {{ .Values.apigatewayv2.vpclinkid }}
   connectionType: VPC_LINK
   integrationType: HTTP_PROXY
