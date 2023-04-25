@@ -58,3 +58,8 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+apigatewayv2:
+  vpclinkid: uvitga
+  lbarn: "arn:aws:elasticloadbalancing:ap-northeast-2:751218278275:listener/app/kcd-svc-kdyoo-alb/abbc49cd08d6be84/d27f0e542932388a"
+
