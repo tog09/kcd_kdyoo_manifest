@@ -10,6 +10,7 @@ spec:
   integrationURI: {{ .Values.apigatewayv2.lbarn }}
   integrationMethod: GET
   payloadFormatVersion: "1.0"
+  description: "integration for {{ .Values.appName }} LB and VPC link"
 
 ---
 
@@ -19,7 +20,7 @@ metadata:
   name: "{{ .Values.appName }}-route"
 spec:
   apiID: {{ .Values.apigatewayv2.apiid }}
-  routeKey: "GET /{{ .Values.appName }}"
   targetRef:
     from:
       name: "{{ .Values.appName }}-integration"
+  routeKey: "GET /{{ .Values.appName }}"
