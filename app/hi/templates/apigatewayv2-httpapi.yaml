@@ -3,9 +3,7 @@ kind: Integration
 metadata:
   name: "{{ .Values.appName }}-integration"
 spec:
-  apiRef:
-    from:
-      name: {{ .Values.apigatewayv2.apiname }}
+  apiID: {{ .Values.apigatewayv2.apiid }}
   connectionID: {{ .Values.apigatewayv2.vpclinkid }}
   connectionType: VPC_LINK
   integrationType: HTTP_PROXY
