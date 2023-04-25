@@ -27,11 +27,11 @@ ingress:
     alb.ingress.kubernetes.io/group.name: kcd-svc-kdyoo-apps
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/healthcheck-path: /hello
-    alb.ingress.kubernetes.io/subnets: subnet-04cf02125fe43e952, subnet-0d3a600e2c59a009d
+    alb.ingress.kubernetes.io/subnets: subnet-01c39c85551a37d5f, subnet-0124a5b3d2ca80aa1
   ingressRule:
     - http:
         paths:
-          - path: /
+          - path: /hello
             pathType: Prefix
             backend:
               service:
