@@ -17,9 +17,6 @@ spec:
     from:
       name: "{{ .Values.appName }}-integration"
   connectionID: {{ .Values.apigatewayv2.vpclinkid }}
-  connectionRef:
-    from:
-      name: string
   connectionType: VPC_LINK
   integrationType: HTTP_PROXY
   integrationURI: {{ .Values.apigatewayv2.lbarn }}
@@ -35,7 +32,7 @@ metadata:
 spec:
   apiRef:
     from:
-      name: "{{ .Values.appName }}-route"
+      name: "{{ .Values.appName }}-http-api"
   routeKey: "GET /{{ .Values.appName }}"
   targetRef:
     from:
@@ -46,11 +43,11 @@ spec:
 apiVersion: apigatewayv2.services.k8s.aws/v1alpha1
 kind: Stage
 metadata:
-  name: "{{ .Values.appName }}-stage"
+  name: "{{ .Values.appName }}"
 spec:
   apiRef:
     from:
       name: "{{ .Values.appName }}-http-api"
-  stageName: "{{ .Values.appName }}-stage"
+  stageName: "{{ .Values.appName }}"
   autoDeploy: true
   description: "auto deployed stage for {{ .Values.appName }}-http-api"
