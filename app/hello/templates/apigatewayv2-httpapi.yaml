@@ -17,7 +17,7 @@ spec:
     from:
       name: "{{ .Values.appName }}-http-api"
   connectionID: {{ .Values.apigatewayv2.vpclinkid }}
-  connectionType: VPC_LINK
+  connectionType: vpc_link
   integrationType: HTTP_PROXY
   integrationURI: {{ .Values.apigatewayv2.lbarn }}
   integrationMethod: GET
