@@ -1,21 +1,9 @@
 apiVersion: apigatewayv2.services.k8s.aws/v1alpha1
-kind: API
-metadata:
-  name: "{{ .Values.appName }}-http-api"
-spec:
-  name: "{{ .Values.appName }}-http-api"
-  protocolType: HTTP
-
----
-
-apiVersion: apigatewayv2.services.k8s.aws/v1alpha1
 kind: Integration
 metadata:
   name: "{{ .Values.appName }}-integration"
 spec:
-  apiRef:
-    from:
-      name: "{{ .Values.appName }}-http-api"
+  apiID: {{ .Values.apigatewayv2.apiid }}
   connectionID: {{ .Values.apigatewayv2.vpclinkid }}
   connectionType: VPC_LINK
   integrationType: HTTP_PROXY
@@ -30,24 +18,8 @@ kind: Route
 metadata:
   name: "{{ .Values.appName }}-route"
 spec:
-  apiRef:
-    from:
-      name: "{{ .Values.appName }}-http-api"
+  apiID: {{ .Values.apigatewayv2.apiid }}
   routeKey: "GET /{{ .Values.appName }}"
   targetRef:
     from:
       name: "{{ .Values.appName }}-integration"
-
----
-
-apiVersion: apigatewayv2.services.k8s.aws/v1alpha1
-kind: Stage
-metadata:
-  name: "{{ .Values.appName }}"
-spec:
-  apiRef:
-    from:
-      name: "{{ .Values.appName }}-http-api"
-  stageName: "$default"
-  autoDeploy: true
-  description: "auto deployed stage for {{ .Values.appName }}-http-api"
