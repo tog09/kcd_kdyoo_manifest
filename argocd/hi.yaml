@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hi
+  namespace: argocd
+  # Add a this finalizer ONLY if you want these to cascade delete.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/tog09/kcd_kdyoo_manifest
+    targetRevision: main
+    path: app/hi
+
+  destination:
+    server: https://FC14B94CE9909D6D93C476EEFF3C6B5A.gr7.ap-northeast-2.eks.amazonaws.com
+    # The namespace will only be set for namespace-scoped resources that have not set a value for .metadata.namespace
+    namespace: hi
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+    syncOptions:
+      - CreateNamespace=true
