@@ -34,12 +34,10 @@ ingress:
           - path: /hello
             pathType: Prefix
             backend:
-              # serviceName must match either: canary.trafficRouting.alb.rootService (if specified),
-              # or canary.stableService (if rootService is omitted)
-              serviceName: hello
-              # servicePort must be the value: use-annotation
-              # This instructs AWS Load Balancer Controller to look to annotations on how to direct traffic
-              servicePort: 8080
+              service:
+                name: hello
+                port:
+                  number: 8080
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
