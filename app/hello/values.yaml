@@ -53,7 +53,7 @@ ingress:
           - path: /hello
             pathType: Prefix
             backend:
-              serviceName: hello-root
+              serviceName: hello
               servicePort: use-annotation
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -32,7 +32,7 @@ spec:
       trafficRouting:
         alb:
           ingress: {{ .Values.appName }}
-          rootService: hello-root
+          rootService: hello
           servicePort: {{ .Values.service.port }}
   selector:
     matchLabels:
