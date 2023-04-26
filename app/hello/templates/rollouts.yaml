@@ -3,16 +3,14 @@ kind: Rollout
 metadata:
   name: {{ .Values.appName }}
   namespace: { { .Release.Namespace } }
+  labels:
+    {{- include "hello.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 2
   selector:
     matchLabels:
       { { - include "hello.selectorLabels" . | nindent 6 } }
-  workloadRef:                                 # Reference an existing Deployment using workloadRef field
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ .Values.appName }}
   strategy:
     canary:
       maxSurge: "25%"
@@ -32,22 +30,6 @@ spec:
           ingress: {{ .Values.appName }}
           # Service port is the port which the Service listens on (required).
           servicePort: {{ .Values.service.port }}
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Values.appName }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    app.kubernetes.io/instance: rollout-canary
-spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: 0
-  {{- end }}
-  selector:
-    matchLabels:
-      {{- include "hello.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
