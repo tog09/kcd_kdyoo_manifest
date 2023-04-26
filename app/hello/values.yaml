@@ -21,6 +21,7 @@ service:
 ingress:
   annotations:
     kubernetes.io/ingress.class: alb
+    networking.k8s.io/sync-options: SkipDryRunOnMissingResource=true
     alb.ingress.kubernetes.io/load-balancer-name: kcd-svc-kdyoo-alb
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/scheme: internal
@@ -28,7 +29,7 @@ ingress:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/healthcheck-path: /hello
     alb.ingress.kubernetes.io/subnets: subnet-01c39c85551a37d5f, subnet-0124a5b3d2ca80aa1
-    alb.ingress.kubernetes.io/actions.root-service: |
+    alb.ingress.kubernetes.io/actions.hello: |
       {
         "Type":"forward",
         "ForwardConfig":{
@@ -52,10 +53,6 @@ ingress:
           - path: /hello
             pathType: Prefix
             backend:
-              service:
-                name: hi
-                port:
-                  number: 8080
               serviceName: hello
               servicePort: use-annotation
 resources:

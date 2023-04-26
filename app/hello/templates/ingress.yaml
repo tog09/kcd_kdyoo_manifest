@@ -8,7 +8,6 @@ metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
-    networking.k8s.io/sync-options: SkipDryRunOnMissingResource=true
   {{- end }}
 spec:
   {{- with .Values.ingress.ingressRule }}
