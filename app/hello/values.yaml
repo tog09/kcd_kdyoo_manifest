@@ -54,8 +54,10 @@ ingressRule:
           - path: /hello
             pathType: Prefix
             backend:
-              serviceName: hello
-              servicePort: use-annotation
+              service:
+                name: hello
+                port:
+                  name: use-annotation
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
