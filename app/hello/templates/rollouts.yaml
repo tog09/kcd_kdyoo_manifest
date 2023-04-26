@@ -23,7 +23,7 @@ spec:
         labels:
           role: stable
       maxUnavailable: 0
-      maxSurge: { { .Values.maxSurge } }
+      maxSurge: "25%"
       steps:
         - setWeight: 25
         - pause: { }
