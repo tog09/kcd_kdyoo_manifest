@@ -21,9 +21,6 @@ spec:
         alb:
           ingress: {{ .Values.appName }}
           servicePort: {{ .Values.service.port }}
-  selector:
-    matchLabels:
-      { { - include "hello.selectorLabels" . | nindent 6 } }
   template:
     spec:
       containers:
@@ -39,3 +36,6 @@ spec:
     metadata:
       labels:
         { { - include "hello.selectorLabels" . | nindent 8 } }
+  selector:
+    matchLabels:
+      { { - include "hello.selectorLabels" . | nindent 6 } }
