@@ -13,15 +13,15 @@ spec:
       { { - include "hello.selectorLabels" . | nindent 6 } }
   strategy:
     canary:
-      maxSurge: "25%"
-      maxUnavailable: 0
-      steps:
-        - setWeight: 25
-        - pause: {}
       # canaryService and stableService are references to Services which the Rollout will modify
       # to target the canary ReplicaSet and stable ReplicaSet respectively (required).
       canaryService: "{{ .Values.appName }}-canary"
       stableService: "{{ .Values.appName }}-stable"
+      maxUnavailable: 0
+      maxSurge: "25%"
+      steps:
+        - setWeight: 25
+        - pause: { }
       trafficRouting:
         alb:
           # The referenced ingress will be injected with a custom action annotation, directing
