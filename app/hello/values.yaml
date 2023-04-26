@@ -52,6 +52,10 @@ ingress:
           - path: /hello
             pathType: Prefix
             backend:
+              service:
+                name: hi
+                port:
+                  number: 8080
               serviceName: hello
               servicePort: use-annotation
 resources:
