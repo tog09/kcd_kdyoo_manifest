@@ -38,6 +38,8 @@ ingress:
                 name: hello
                 port:
                   number: 8080
+              serviceName: hello
+              servicePort: use-annotation
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -58,7 +60,6 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 apigatewayv2:
   vpclinkid: uvitga
   lbarn: "arn:aws:elasticloadbalancing:ap-northeast-2:751218278275:listener/app/kcd-svc-kdyoo-alb/abbc49cd08d6be84/d27f0e542932388a"
