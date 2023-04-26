@@ -8,9 +8,6 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 2
-  selector:
-    matchLabels:
-      { { - include "hello.selectorLabels" . | nindent 6 } }
   strategy:
     canary:
       # canaryService and stableService are references to Services which the Rollout will modify
@@ -30,6 +27,9 @@ spec:
           ingress: {{ .Values.appName }}
           # Service port is the port which the Service listens on (required).
           servicePort: {{ .Values.service.port }}
+  selector:
+    matchLabels:
+      { { - include "hello.selectorLabels" . | nindent 6 } }
   template:
     metadata:
       {{- with .Values.podAnnotations }}
