@@ -52,7 +52,7 @@ ingressRule:
     - http:
         paths:
           - path: /hello
-            pathType: prefix
+            pathType: Prefix
             backend:
               serviceName: hello
               servicePort: use-annotation
