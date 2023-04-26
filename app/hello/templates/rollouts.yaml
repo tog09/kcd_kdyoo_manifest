@@ -3,8 +3,6 @@ kind: Rollout
 metadata:
   name: {{ .Values.appName }}
   namespace: { { .Release.Namespace } }
-  labels:
-    { { - include "hello.labels" . | nindent 4 } }
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 2
@@ -42,7 +40,6 @@ metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "hello.labels" . | nindent 4 }}
     app.kubernetes.io/instance: rollout-canary
 spec:
   {{- if not .Values.autoscaling.enabled }}
