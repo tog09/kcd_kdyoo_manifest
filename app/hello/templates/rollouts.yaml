@@ -25,9 +25,6 @@ spec:
     matchLabels:
       { { - include "hello.selectorLabels" . | nindent 6 } }
   template:
-    metadata:
-      labels:
-        {{- include "hello.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -39,3 +36,6 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+    metadata:
+      labels:
+        { { - include "hello.selectorLabels" . | nindent 8 } }
