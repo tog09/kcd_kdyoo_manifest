@@ -3,11 +3,11 @@ kind: Rollout
 metadata:
   name: {{ .Values.appName }}
   namespace: {{ .Release.Namespace }}
-  workloadRef:                                 # Reference an existing Deployment using workloadRef field
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ .Values.appName }}
+  labels:
+    {{- include "hello.labels" . | nindent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 2
   strategy:
     canary:
       canaryService: "{{ .Values.appName }}-canary"
@@ -31,16 +31,6 @@ spec:
         alb:
           ingress: {{ .Values.appName }}
           servicePort: {{ .Values.service.port }}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ .Values.appName }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "hello.labels" . | nindent 4 }}
-spec:
-  replicas: 0
   selector:
     matchLabels:
       {{- include "hello.selectorLabels" . | nindent 6 }}
