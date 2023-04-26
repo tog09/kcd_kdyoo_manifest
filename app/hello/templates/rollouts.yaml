@@ -1,28 +1,35 @@
-apiVersion: argoproj.io/v1alpha1               # Create a rollout resource
-kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: {{ .Values.appName }}
-  namespace: { { .Release.Namespace } }
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "hello.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: 2
+  {{- end }}
   strategy:
-    canary:
-      canaryService: "{{ .Values.appName }}-canary"
-      stableService: "{{ .Values.appName }}-stable"
-      maxUnavailable: 0
-      maxSurge: "25%"
-      steps:
-        - setWeight: 25
-        - pause: { }
-      trafficRouting:
-        alb:
-          ingress: {{ .Values.appName }}
-          servicePort: {{ .Values.service.port }}
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: {{ .Values.maxSurge }}
+      maxUnavailable: {{ .Values.maxUnavailable }}
+  selector:
+    matchLabels:
+      {{- include "hello.selectorLabels" . | nindent 6 }}
   template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "hello.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -33,9 +40,15 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-    metadata:
-      labels:
-        { { - include "hello.selectorLabels" . | nindent 8 } }
-  selector:
-    matchLabels:
-      { { - include "hello.selectorLabels" . | nindent 6 } }
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
