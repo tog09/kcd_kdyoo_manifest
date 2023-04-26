@@ -26,11 +26,9 @@ spec:
       { { - include "hello.selectorLabels" . | nindent 6 } }
   template:
     metadata:
-      annotations: {}
       labels:
         {{- include "hello.selectorLabels" . | nindent 8 }}
     spec:
-      imagePullSecrets: []
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -41,6 +39,3 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      nodeSelector: {}
-      affinity: {}
-      tolerations: []
