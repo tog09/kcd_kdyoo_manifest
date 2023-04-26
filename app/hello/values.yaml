@@ -8,7 +8,7 @@ image:
   repository: 925676107448.dkr.ecr.ap-northeast-2.amazonaws.com/kcd-cicd-kdyoo-hello-app-repo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "2851a827bbf48db13c144f702de194824795af69"
+  tag: "f50cd6891d67ee9c2c910e07b146cfb34cdab645"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -49,16 +49,15 @@ ingress:
 #      }
 
 ingressRule:
-    - http:
-        paths:
-          - path: /hello
-            pathType: Prefix
-            backend:
-              service:
-                name: hello
-                port:
-                  name: use-annotation
-
+  - http:
+      paths:
+        - path: /hello
+          pathType: Prefix
+          backend:
+            service:
+              name: hello
+              port:
+                name: use-annotation
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
