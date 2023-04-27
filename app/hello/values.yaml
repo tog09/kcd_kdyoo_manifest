@@ -8,7 +8,7 @@ image:
   repository: 925676107448.dkr.ecr.ap-northeast-2.amazonaws.com/kcd-cicd-kdyoo-hello-app-repo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "71683c02cd6d8e8ecc7ba1bd17781feb118b444b"
+  tag: "11250ce4400f4d7f36e1d1995042c577780b50b2"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
