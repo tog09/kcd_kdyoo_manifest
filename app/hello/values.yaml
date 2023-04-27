@@ -29,24 +29,6 @@ ingress:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/healthcheck-path: /hello
     alb.ingress.kubernetes.io/subnets: subnet-01c39c85551a37d5f, subnet-0124a5b3d2ca80aa1
-#    alb.ingress.kubernetes.io/actions.hello: |
-#      {
-#        "Type":"forward",
-#        "ForwardConfig":{
-#          "TargetGroups":[
-#            {
-#                "Weight":25,
-#                "ServiceName":"hello-canary",
-#                "ServicePort":"8080"
-#            },
-#            {
-#                "Weight":75,
-#                "ServiceName":"hello-stable",
-#                "ServicePort":"8080"
-#            }
-#          ]
-#        }
-#      }
 
 ingressRule:
     - http:

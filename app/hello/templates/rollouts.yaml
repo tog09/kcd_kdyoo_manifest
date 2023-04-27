@@ -12,6 +12,9 @@ spec:
   revisionHistoryLimit: 2
   strategy:
     canary:
+      analysis:
+        templates:
+        - templateName: failure-rate
       canaryService: "{{ .Values.appName }}-canary"
       stableService: "{{ .Values.appName }}-stable"
       canaryMetadata:
@@ -25,9 +28,13 @@ spec:
         labels:
           role: stable
       maxUnavailable: 0
-      maxSurge: "25%"
+      maxSurge: "50%"
       steps:
+        - setWeight: 10
+        - pause: { }
         - setWeight: 25
+        - pause: { }
+        - setWeight: 50
         - pause: { }
       trafficRouting:
         alb:

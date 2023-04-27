@@ -1,0 +1,18 @@
+kind: AnalysisTemplate
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: failure-rate
+spec:
+  metrics:
+    - name: webmetric
+      successCondition: result == 'hello'
+      interval: 10s
+      failureLimit: 3
+      provider:
+        web:
+          url: "https://ky8g5wyric.execute-api.ap-northeast-2.amazonaws.com/hello"
+          timeoutSeconds: 20 # defaults to 10 seconds
+          headers:
+            - key: Content-Type # if body is a json, it is recommended to set the Content-Type
+              value: "application/json"
+          jsonPath: "{$.message}"
